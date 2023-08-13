@@ -1,2 +1,2 @@
-# cbi-tcc-project
+# thoth-tcc-project
 Integrated project
