@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: back-end
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../:/home/thoth/:rw
+
+  db:
+    profiles:
+      - oraclexe
+    image: container-registry.oracle.com/database/express:21.3.0-xe
+    environment:
+      - ORACLE_PWD=#Sr3cr3T@
+      - ORACLE_CHARACTERSET=UTF-8
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    volumes:
+      - ./db/data/:/opt/oracle/oradata:rw
+      - ./db/scripts/startup:/docker-entrypoint-initdb.d/startup/:rw
+      - ./db/scripts/setup:/docker-entrypoint-initdb.d/setup/:rw
